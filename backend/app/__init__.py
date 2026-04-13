@@ -35,6 +35,7 @@ def create_app() -> FastAPI:
     from app.api.simulation import router as simulation_router
     from app.api.export import router as export_router
     from app.api.tasks import router as tasks_router
+    from app.api.settings import router as settings_router
 
     app.include_router(scenarios_router)
     app.include_router(analysis_router)
@@ -47,6 +48,7 @@ def create_app() -> FastAPI:
     app.include_router(simulation_router)
     app.include_router(export_router)
     app.include_router(tasks_router)
+    app.include_router(settings_router)
 
     @app.get("/health")
     def health():

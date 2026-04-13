@@ -1,4 +1,8 @@
-"""LLM client — wraps OpenAI-compatible API. Falls back to direct openai SDK if MiroFish unavailable."""
+"""LLM client — wraps OpenAI-compatible API. Falls back to direct openai SDK if MiroFish unavailable.
+
+API key is read dynamically from app_settings (UI-configured) on every request,
+so users can update their key through the settings UI without restarting the server.
+"""
 import json
 import sys
 from typing import AsyncGenerator
@@ -20,29 +24,34 @@ except ImportError:
     logger.info("MiroFish LLMClient not available — using direct OpenAI SDK")
 
 
+def _get_openai_client():
+    """Build a fresh AsyncOpenAI client using the current effective settings."""
+    from openai import AsyncOpenAI
+    from app.utils.app_settings import get_llm_settings
+    s = get_llm_settings()
+    return AsyncOpenAI(
+        api_key=s["llm_api_key"] or "no-key-set",
+        base_url=s["llm_base_url"],
+    )
+
+
+def _get_model_name() -> str:
+    from app.utils.app_settings import get_llm_settings
+    return get_llm_settings()["llm_model_name"]
+
+
 class LLMClient:
-    """Unified LLM client for the Strategy App."""
+    """Unified LLM client for the Strategy App.
 
-    def __init__(self):
-        self._client = None
-        self._init_client()
-
-    def _init_client(self):
-        try:
-            from openai import AsyncOpenAI
-            self._client = AsyncOpenAI(
-                api_key=settings.llm_api_key,
-                base_url=settings.llm_base_url,
-            )
-        except Exception as e:
-            logger.error("Failed to init LLM client: %s", e)
+    Reads API key from app_settings on every call so UI changes take effect
+    immediately — no restart required.
+    """
 
     async def chat(self, system: str, user: str, temperature: float = 0.7) -> str:
         """Send a chat completion and return the text response."""
-        if not self._client:
-            raise RuntimeError("LLM client not initialized")
-        response = await self._client.chat.completions.create(
-            model=settings.llm_model_name,
+        client = _get_openai_client()
+        response = await client.chat.completions.create(
+            model=_get_model_name(),
             messages=[
                 {"role": "system", "content": system},
                 {"role": "user", "content": user},
@@ -72,10 +81,9 @@ class LLMClient:
 
     async def stream(self, system: str, user: str) -> AsyncGenerator[str, None]:
         """Stream a chat completion token by token."""
-        if not self._client:
-            raise RuntimeError("LLM client not initialized")
-        async for chunk in await self._client.chat.completions.create(
-            model=settings.llm_model_name,
+        client = _get_openai_client()
+        async for chunk in await client.chat.completions.create(
+            model=_get_model_name(),
             messages=[
                 {"role": "system", "content": system},
                 {"role": "user", "content": user},

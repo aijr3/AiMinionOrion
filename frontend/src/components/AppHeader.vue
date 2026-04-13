@@ -19,19 +19,44 @@
       </nav>
 
       <div class="header-actions">
+        <!-- API key status indicator + settings button -->
+        <button class="settings-btn" @click="showSettings = true" :title="keySet ? 'API key configured — click to update' : 'No API key — click to add'">
+          <span class="key-dot" :class="keySet ? 'dot-green' : 'dot-amber'" />
+          <span class="settings-label">{{ keySet ? 'API: ✓' : 'API Key' }}</span>
+          <span class="gear-icon">⚙</span>
+        </button>
+
         <RouterLink to="/scenarios" class="btn btn-secondary" style="font-size:13px;padding:8px 16px;">All Scenarios</RouterLink>
         <RouterLink to="/scenarios/new" class="btn btn-primary" style="font-size:13px;padding:8px 16px;">+ New Scenario</RouterLink>
       </div>
     </div>
   </header>
+
+  <SettingsModal v-if="showSettings" @close="showSettings = false" @saved="onSaved" />
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import api from '../api/index.js'
+import SettingsModal from './SettingsModal.vue'
 
 const route = useRoute()
 const scenarioId = computed(() => route.params.id || null)
+
+const showSettings = ref(false)
+const keySet = ref(false)
+
+onMounted(async () => {
+  try {
+    const res = await api.get('/settings')
+    keySet.value = (res.data || res).llm_api_key_set || false
+  } catch {}
+})
+
+function onSaved({ keySet: k }) {
+  keySet.value = k
+}
 </script>
 
 <style scoped>
@@ -61,5 +86,20 @@ const scenarioId = computed(() => route.params.id || null)
 }
 .nav-greene { color: var(--accent-gold) !important; }
 .nav-greene:hover, .nav-greene.router-link-active { background: rgba(212,175,55,0.1) !important; }
-.header-actions { display: flex; gap: 8px; margin-left: auto; }
+.header-actions { display: flex; gap: 8px; align-items: center; margin-left: auto; }
+
+/* Settings button */
+.settings-btn {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 6px 12px;
+  color: var(--text-secondary); font-size: 13px; font-weight: 500;
+  cursor: pointer; transition: all 0.2s;
+}
+.settings-btn:hover { border-color: var(--accent-blue); color: var(--text-primary); }
+.key-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.dot-green { background: var(--accent-green); box-shadow: 0 0 5px var(--accent-green); }
+.dot-amber { background: var(--accent-amber); box-shadow: 0 0 5px var(--accent-amber); }
+.settings-label { font-size: 12px; }
+.gear-icon { font-size: 14px; opacity: 0.7; }
 </style>

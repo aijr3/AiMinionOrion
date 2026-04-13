@@ -1,5 +1,14 @@
 <template>
   <div class="home">
+    <!-- No API key warning -->
+    <div v-if="!keySet" class="api-warning">
+      <span class="warn-icon">⚠</span>
+      <span>No OpenAI API key configured — the analysis pipeline won't run until you add one.</span>
+      <button class="warn-btn" @click="showSettings = true">Add API Key</button>
+    </div>
+
+    <SettingsModal v-if="showSettings" @close="showSettings = false" @saved="onSaved" />
+
     <div class="hero">
       <div class="hero-badge">Universal Strategic Advisor</div>
       <h1 class="hero-title">Turn Any Scenario Into a<br /><span class="gradient-text">Winning Strategy</span></h1>
@@ -43,9 +52,15 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { scenariosApi } from '../api/scenarios.js'
+import api from '../api/index.js'
+import SettingsModal from '../components/SettingsModal.vue'
 
 const router = useRouter()
 const recentScenarios = ref([])
+const keySet = ref(true)    // optimistic default (avoids flash)
+const showSettings = ref(false)
+
+function onSaved({ keySet: k }) { keySet.value = k }
 
 const frameworks = [
   { icon: '⚔', name: 'War Strategy', desc: 'Sun Tzu Art of War, Clausewitz, OODA loop' },
@@ -60,8 +75,12 @@ const frameworks = [
 
 onMounted(async () => {
   try {
-    const res = await scenariosApi.list(0, 5)
-    recentScenarios.value = res.data || []
+    const [scenRes, settRes] = await Promise.all([
+      scenariosApi.list(0, 5),
+      api.get('/settings'),
+    ])
+    recentScenarios.value = scenRes.data || []
+    keySet.value = (settRes.data || settRes).llm_api_key_set || false
   } catch {}
 })
 
@@ -81,6 +100,22 @@ function formatDate(iso) {
 
 <style scoped>
 .home { padding: 48px 0; }
+
+.api-warning {
+  display: flex; align-items: center; gap: 12px;
+  background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.3);
+  border-radius: 10px; padding: 14px 20px; margin-bottom: 32px;
+  color: var(--accent-amber); font-size: 14px;
+}
+.warn-icon { font-size: 18px; flex-shrink: 0; }
+.api-warning span:nth-child(2) { flex: 1; }
+.warn-btn {
+  background: var(--accent-amber); color: #0a0e1a;
+  border: none; border-radius: 6px; padding: 7px 14px;
+  font-size: 13px; font-weight: 700; cursor: pointer;
+  white-space: nowrap; transition: opacity 0.2s;
+}
+.warn-btn:hover { opacity: 0.9; }
 .hero { text-align: center; padding: 60px 20px; max-width: 800px; margin: 0 auto 64px; }
 .hero-badge {
   display: inline-block; background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.3);
