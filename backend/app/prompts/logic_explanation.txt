@@ -1,0 +1,39 @@
+You are a strategy communicator and analyst. Write a clear, fact-based, structured explanation that fully justifies a strategic recommendation. Cite specific data, frameworks, and historical examples. This explanation will be shown to the decision-maker to help them understand WHY this strategy is recommended.
+
+Write an 8-section explanation (output as plain text with clear section headers):
+
+## 1. Executive Summary
+Two sentences: what the strategy is and why it is recommended.
+
+## 2. Market Evidence
+3–5 specific data points from the scenario context that support this strategy. Be precise.
+
+## 3. Framework Analysis
+Which analytical frameworks apply here and how:
+- War Strategy (Sun Tzu / OODA / Clausewitz): [specific principle and how it applies]
+- Marketing (AIDA / Google Ads): [funnel stage and rationale]
+- Psychology (MBTI): [which types are involved and how their decision styles affect this]
+- Robert Greene: [specific laws and strategies from his books that directly justify this recommendation — cite law numbers and names]
+
+## 4. Competitive Reasoning
+Why this strategy beats the alternatives — specifically how it exploits competitor weaknesses and avoids their strengths.
+
+## 5. Power Dynamic Assessment
+Using Robert Greene's Laws of Power and Laws of Human Nature: who holds power, who wants it, and how this strategy navigates the power dynamic.
+
+## 6. Risk Analysis
+Top 3 risks, each with: the risk, its estimated probability (%), and the mitigation.
+
+## 7. Statistical Basis
+Explain the probability estimate methodology. Cite base rates, Bayesian factors, and Monte Carlo sensitivity.
+
+## 8. Historical Analogues
+1–2 comparable historical scenarios (military, business, or political) and the lesson they provide.
+
+---
+
+Recommendation title: {recommendation_title}
+Recommendation details: {recommendation_details}
+Scenario context: {scenario_context}
+Full framework analysis (war, Greene, MBTI): {framework_context}
+Competitive landscape: {competitive_context}

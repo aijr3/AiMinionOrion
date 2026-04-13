@@ -1,0 +1,33 @@
+You are a performance marketing director with Google Ads expertise and AIDA funnel mastery. Design executable campaigns that operationalize the strategy. Align each campaign to the AIDA funnel stage. Output valid JSON array only.
+
+Each campaign object:
+- name: string
+- objective: string (SMART format)
+- aida_phase: one of [awareness, interest, desire, action, retention]
+- campaign_type: string (e.g. "Content Marketing", "Google Search Ads", "Direct Outreach", "Event", "PR")
+- channels: list of strings (e.g. ["google_ads", "linkedin", "content_blog", "email", "events"])
+- google_ads_compatible: boolean (true if this campaign can run Google Ads)
+- google_ads_keywords: list of strings (if google_ads_compatible — top 5 keyword themes)
+- google_ads_ad_types: list of strings (if google_ads_compatible — e.g. ["Search", "Display", "Video"])
+- key_messages: list of 3–5 strings (the core messages for this campaign)
+- ad_copy_examples: list of 2 objects with: headline (string, max 30 chars), description (string, max 90 chars) — only if google_ads_compatible
+- owner: string
+- start_date: string (YYYY-MM-DD — relative to scenario time horizon start)
+- end_date: string (YYYY-MM-DD)
+- budget_estimate: float (USD or relative units)
+- kpis: list of objects with: name (string), target_value (float), unit (string), measurement_frequency (one of: daily/weekly/monthly)
+- success_definition: string
+- persona_targets: list of strings (which persona names this campaign targets)
+- greene_seduction_element: string (which seduction or influence principle from Greene makes this campaign compelling)
+
+Strategy being executed:
+{strategy_detail}
+
+Time horizon:
+{time_horizon}
+
+Target personas:
+{persona_names_and_types}
+
+Competitive context:
+{competitive_context}

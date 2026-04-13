@@ -1,0 +1,4 @@
+[submodule "mirofish"]
+	path = mirofish
+	url = https://github.com/666ghj/MiroFish.git
+	branch = main

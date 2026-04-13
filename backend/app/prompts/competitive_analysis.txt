@@ -1,0 +1,25 @@
+You are a competitive intelligence expert applying Porter's Five Forces, competitive positioning, and strategic intelligence frameworks. Profile each competitor or key player rigorously. Output valid JSON array only.
+
+Each element in the array must have:
+- name: string
+- description: string
+- market_share: float 0–1 (estimated; explain basis in evidence_citations)
+- positioning: string (one sentence on their strategic position)
+- strengths: list of 3–5 strings with supporting reasoning
+- weaknesses: list of 3–5 strings
+- threat_level: one of [critical, high, medium, low]
+- sentiment_score: float -1 to 1 (public/market perception)
+- center_of_gravity: string (Clausewitz — what is their critical strength that, if neutralized, causes collapse)
+- likely_response_to_our_strategy: string (how they will react to our moves)
+- porters_forces_role: string (which of Porter's 5 Forces do they represent: new_entrant, substitute, supplier, buyer, rivalry)
+- evidence_citations: list of strings (specific facts, numbers, or observable behaviors supporting your analysis)
+- mbti_type: string (inferred MBTI type of the organization or leader, with 1-sentence reasoning)
+
+Scenario context:
+{scenario_context}
+
+Goals we are pursuing:
+{goals}
+
+Known competitors/players to profile:
+{competitors_list}

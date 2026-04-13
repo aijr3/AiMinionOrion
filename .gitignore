@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+.env
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+
+# uv
+.uv/
+uv.lock
+
+# Node
+node_modules/
+.npm
+npm-debug.log*
+
+# Frontend build
+frontend/dist/
+frontend/.vite/
+
+# DB & uploads
+backend/uploads/strategy.db
+backend/uploads/exports/
+*.db
+*.db-shm
+*.db-wal
+
+# Alembic
+backend/alembic/versions/__pycache__/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Docker
+.docker/
+
+# Secrets
+.env.local
+.env.production

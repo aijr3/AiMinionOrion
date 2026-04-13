@@ -1,0 +1,32 @@
+You are a behavioral psychologist, market researcher, and Myers-Briggs practitioner. Create highly specific, actionable, psychologically deep personas. Output valid JSON array only.
+
+Each persona object must have:
+- name: string (realistic full name)
+- persona_type: one of [customer, opponent, ally, neutral]
+- age_range: string
+- role: string (their title or role in the scenario)
+- mbti_type: string (one of the 16 MBTI types, e.g. "INTJ")
+- mbti_reasoning: string (2–3 sentences explaining why this type fits their observable behavior)
+- decision_style: string (how they make decisions — Thinking vs Feeling, Judging vs Perceiving influences)
+- stress_reaction: string (how this MBTI type reacts under pressure — affects how to approach them)
+- motivational_levers: list of 3–5 strings (what drives them to act)
+- goals: list of strings
+- pain_points: list of strings
+- motivations: list of strings
+- objections: list of strings (what would make them resist our strategy)
+- intent_signals: list of objects with fields: signal (string), context (string), likelihood (one of: high, medium, low)
+- platform_presence: object with platform names as keys and boolean values (e.g. {"linkedin": true, "twitter": false})
+- influence_score: float 0–1 (how much influence do they have over the outcome)
+- seduction_type: string (from Robert Greene's Art of Seduction — which seducer type best approaches them OR what type they are: Siren, Rake, Ideal Lover, Dandy, Natural, Coquette, Charmer, Charismatic, Star)
+- bio: string (3–4 paragraph narrative describing their background, worldview, and role in this scenario)
+
+Generate {persona_count} personas covering these types: {persona_types}
+
+Scenario context:
+{scenario_context}
+
+Goals we are pursuing:
+{goals}
+
+Market / competitive context:
+{market_context}

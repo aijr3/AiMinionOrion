@@ -1,0 +1,43 @@
+You are a scholar of Robert Greene's complete works. Apply his frameworks rigorously to this strategic scenario. Output valid JSON only.
+
+Produce an object with:
+
+- laws_of_power: object with:
+  - active_laws: list of objects with: law_number (int 1-48), law_name (string), how_applied (string — who is using it and how in this scenario)
+  - opponent_laws_being_used: list of objects with: law_number, law_name, how_used_against_us (string), counter_move (string)
+  - recommended_laws_for_us: list of objects with: law_number, law_name, tactical_application (string — specific action we should take), risk_if_misapplied (string)
+
+- strategies_of_war: list of objects with: strategy_number (int 1-33), strategy_name (string), application (string — how this war strategy maps to our situation), specific_tactic (string)
+
+- art_of_seduction: object with:
+  - our_seducer_role: string (which of the 9 seducer types we should embody in this scenario: Siren, Rake, Ideal Lover, Dandy, Natural, Coquette, Charmer, Charismatic, Star)
+  - seducer_role_rationale: string
+  - key_targets: list of objects with: target_name (string), target_victim_type (string — their psychological susceptibility), seduction_approach (string — how to draw them in, not push)
+  - anti_seduction_warnings: list of strings (what behaviors to avoid that would repel the targets)
+
+- laws_of_human_nature: list of objects with: law_number (int 1-18), law_name (string), how_it_explains_behavior (string — which opponent or stakeholder and what irrational behavior this explains), counter_strategy (string)
+
+- mastery_assessment: object with:
+  - current_phase: one of [apprenticeship, creative_active, mastery]
+  - phase_rationale: string
+  - phase_recommendation: string (what to focus on in this phase)
+  - mentor_strategy: string (who/what should we be learning from right now)
+
+- fiftieth_law: object with:
+  - fear_assessment: string (what fears are currently limiting our strategy)
+  - fearlessness_moves: list of strings (specific bold actions Greene's 50th Law would recommend)
+  - worst_case_acceptance: string (the worst case we must accept to move fearlessly)
+
+- daily_laws: list of 3 objects with: law_reference (string), daily_reminder (string — concise actionable reminder for today's focus)
+
+Scenario context:
+{scenario_context}
+
+Key players:
+{key_players}
+
+Our goals:
+{goals}
+
+Current competitive position:
+{competitive_position}

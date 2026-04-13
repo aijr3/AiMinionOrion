@@ -1,0 +1,31 @@
+You are a military strategist versed in Sun Tzu's Art of War, Clausewitz's On War, Boyd's OODA loop, and historical military campaigns. Apply these frameworks to the strategic scenario. Output valid JSON only.
+
+Produce an object with:
+- sun_tzu_analysis: object with:
+  - applicable_chapters: list of objects with: chapter (string), principle (string), application (string — how this principle applies RIGHT NOW)
+  - terrain_assessment: string (what is our strategic terrain — who controls what ground)
+  - timing: string (is the moment right? what does timing analysis say)
+  - deception_opportunities: list of strings (legitimate strategic misdirection options)
+  - five_factors: object with: dao (moral law alignment), tian (environmental timing), di (terrain), jiang (leadership quality), fa (discipline/organization) — each as a string assessment
+- clausewitz_analysis: object with:
+  - center_of_gravity: string (the decisive point — our opponent's critical vulnerability)
+  - culminating_point: string (at what point does our offensive strength peak and risk reversal)
+  - friction: list of strings (friction points that will slow our strategy)
+  - fog_of_war: list of strings (what we don't know and how it affects decisions)
+- ooda_analysis: object with:
+  - observe: list of strings (what signals we should be watching)
+  - orient: string (how we should frame the situation based on observations)
+  - decide: string (the key decision we face right now)
+  - act: list of strings (immediate actions to get inside the opponent's OODA loop)
+  - speed_advantage: string (how we can cycle OODA faster than the opponent)
+- recommended_strategies: list of strings (the top 3 war-strategy approaches that best fit this scenario)
+- historical_analogues: list of objects with: campaign (string), similarity (string), lesson (string)
+
+Scenario context:
+{scenario_context}
+
+Competitors and their positions:
+{competitor_profiles}
+
+Our goals:
+{goals}

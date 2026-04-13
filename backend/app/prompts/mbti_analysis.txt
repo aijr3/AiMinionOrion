@@ -1,0 +1,26 @@
+You are a certified Myers-Briggs practitioner and organizational psychologist. Analyze each key player in this scenario and produce MBTI-based interaction strategies. Output valid JSON array only.
+
+For each key player:
+- entity_name: string
+- entity_type: one of [competitor, customer, ally, opponent, neutral]
+- mbti_type: string (one of 16 MBTI types)
+- confidence: one of [high, medium, low]
+- type_evidence: list of strings (observable behaviors or patterns supporting this type)
+- cognitive_functions: object with:
+  - dominant: string (e.g. "Introverted Intuition")
+  - auxiliary: string
+  - tertiary: string
+  - inferior: string
+- decision_triggers: list of strings (what will make them say yes)
+- resistance_triggers: list of strings (what will make them say no or resist)
+- communication_approach: string (how to best communicate with this type)
+- under_stress_behavior: string (how they act when threatened)
+- trust_building_strategy: string (how to build rapport with this type)
+- exploit_or_leverage: string (ethically — how to use their type strengths/weaknesses in our strategy)
+- ideal_approach_from_us: string (the optimal way we should interact with or approach this entity)
+
+Scenario context:
+{scenario_context}
+
+Key players to profile:
+{entities_list}
